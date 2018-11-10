@@ -14,18 +14,26 @@ public class Main {
 		kMapa.alocando();
 		kMapa.alocando();
 		kMapa.alocando();
+                kMapa.alocando();
+                kMapa.alocando();
+                kMapa.alocando();
+                kMapa.alocando();
+                
            
-                
-		
-                
 		kMapa.apresenta_mapa();
-                kMapa.retornaPosicao(0);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
             kMapa.HeroiOlhar(0);
+            kMapa.HeroiOlhar(1);
+            kMapa.HeroiOlhar(2);
+            kMapa.HeroiOlhar(3);
+            kMapa.HeroiOlhar(4);
+            kMapa.HeroiOlhar(5);
+            kMapa.HeroiOlhar(6);
+            kMapa.apresenta_mapa();
          
                 /* int i = 0;
                 while (true){
