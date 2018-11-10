@@ -1,8 +1,10 @@
 package personagens;
 
+import sistemas.Visao;
 
 
-public class A_Ator {
+
+public class A_Ator extends Visao{
 
 	private char n[] = {'A','B','C','D','E','F','G'};
 	private static int a = 0;
