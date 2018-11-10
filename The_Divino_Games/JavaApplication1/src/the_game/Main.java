@@ -14,10 +14,7 @@ public class Main {
 		kMapa.alocando();
 		kMapa.alocando();
 		kMapa.alocando();
-		kMapa.alocando();
-		kMapa.alocando();
-                kMapa.alocando();
-                kMapa.alocando();
+           
                 
 		
                 

@@ -23,8 +23,7 @@ public class Z_Mapa{
 			for(int j = 0; j<16; j++) {
 				mapa[i][j] = vazio;
 			}}
-            mapa[0][0] = 'k';
-            mapa[15][15] = 'k';
+           
                 for (int i = 0; i<60; i++){
                     addSeres(planta);
                 }
