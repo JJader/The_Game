@@ -1,4 +1,4 @@
-package the_game;
+package personagens;
 
 
 
@@ -8,9 +8,9 @@ public class A_Ator {
 	private static int a = 0;
 	
 	
-	int localizacao[] = new int[2]; // (x,y)
-	int energia;
-	char nome;
+	public int localizacao[] = new int[2]; // (x,y)
+	public int energia;
+	public char nome;
 	
 //----------------------------------------------------------------------------------------------
 
