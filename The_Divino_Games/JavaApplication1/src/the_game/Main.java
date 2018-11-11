@@ -13,31 +13,21 @@ public class Main {
         	Z_Mapa kMapa = new Z_Mapa();
 		kMapa.alocando();
 		kMapa.alocando();
-		kMapa.alocando();
+                kMapa.alocando();
+                kMapa.alocando();
+                kMapa.alocando();
+                kMapa.apresenta_mapa();    
            
-                
-		
-                
-		kMapa.apresenta_mapa();
-                kMapa.retornaPosicao(0);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            kMapa.HeroiOlhar(0);
-         
-                /* int i = 0;
-                while (true){
-                    try { 
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                
-                    System.out.println(i);
-                i++;
-                }*/
-}
-        
-}
+           while (true){   
+               
+           for (int k = 0; k<kMapa.atores.size(); k++){
+               System.out.println(kMapa.atores.size());
+               kMapa.HeroiOlhar(k);
+               try {Thread.sleep(2000);}
+               catch (InterruptedException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);}
+               kMapa.apresenta_mapa();
+           }
+           
+           }   
+}}

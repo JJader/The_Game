@@ -6,7 +6,7 @@ import personagens.A_Ator;
 
 public class Z_Mapa{
 
-	public char mapa[][] = new char[16][16];
+	public char[][] mapa = new char[16][16];
 	public ArrayList<A_Ator> atores;
         public char vazio = ' ';
         public char planta = '+';
@@ -27,7 +27,7 @@ public class Z_Mapa{
                 for (int i = 0; i<60; i++){
                     addSeres(planta);
                 }
-                for (int i = 0; i<4; i++){
+                for (int i = 0; i<40; i++){
                     addSeres(carnivoro);
                     addSeres(herbivoro);
                 }
@@ -87,7 +87,7 @@ public class Z_Mapa{
             }
         
         public void HeroiOlhar(int nu){
-            try{atores.get(nu).olhar(atores.get(nu).localizacao, mapa);}
+            try{atores.get(nu).olhar(atores.get(nu).localizacao, mapa, atores.get(nu));}
             catch(IndexOutOfBoundsException e){System.out.println("Não tem heroi");}
             }
 
