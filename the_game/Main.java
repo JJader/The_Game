@@ -1,5 +1,6 @@
 package the_game;
 
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import personagens.A_Ator;
@@ -9,19 +10,21 @@ public class Main {
 
     
 	public static void main(String[] args) {
-		
-        	Z_Mapa kMapa = new Z_Mapa();
-		kMapa.alocando();
-		kMapa.alocando();
-                kMapa.alocando();
-                kMapa.alocando();
-                kMapa.alocando();
-                kMapa.apresenta_mapa();    
+	    Scanner in = new Scanner(System.in);
+            Z_Mapa kMapa = new Z_Mapa();
+            int numero;
+            System.out.println("Quantos atores você quer no ambiente???");
+            numero = in.nextInt();
+            
+            for (int i = 0; i<numero; i++){
+        	kMapa.alocando();
+            }
+            
+            kMapa.apresenta_mapa();    
            
-           while (true){   
+           while (kMapa.atores.size()>0){   
                
            for (int k = 0; k<kMapa.atores.size(); k++){
-               System.out.println(kMapa.atores.size());
                kMapa.HeroiOlhar(k);
                try {Thread.sleep(2000);}
                catch (InterruptedException ex) {

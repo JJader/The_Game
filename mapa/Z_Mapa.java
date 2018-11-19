@@ -36,6 +36,7 @@ public class Z_Mapa{
 //----------------------------------------------------------------------------------------------
 	
 	public void apresenta_mapa() {
+           HeroiMorre();
             System.out.println("    0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15");
 		for (int i = 0; i<16; i++) {
                     if (i<10){
@@ -90,6 +91,14 @@ public class Z_Mapa{
             try{atores.get(nu).olhar(atores.get(nu).localizacao, mapa, atores.get(nu));}
             catch(IndexOutOfBoundsException e){System.out.println("Não tem heroi");}
             }
+        
+        public void HeroiMorre(){
+            for(int i = 0; i< atores.size(); i++){
+                if (atores.get(i).energia <= 0){
+                    mapa[atores.get(i).localizacao[0]][atores.get(i).localizacao[1]] = vazio;
+                    atores.remove(i);
+                    }}
+        }
 
 //----------------------------------------------------------------------------------------------
 }        

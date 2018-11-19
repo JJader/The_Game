@@ -3,8 +3,7 @@ package sistemas;
 
 import mapa.Z_Mapa;
 import personagens.A_Ator;
-import java.util.ArrayList;
-import java.util.Random;
+
 
 
 public class Visao extends Z_Mapa{
@@ -28,21 +27,22 @@ public void olhar(int[] a, char[][] mapa, A_Ator ator){
         }
                 
             if ((a[0]+c < 16) && (a[0]+c >= 0) && (a[1]+d < 16) && (a[1]+d) >= 0){
+        
                 
-        if ( mapa[a[0]+c][a[1]+d] == carnivoro){ 
-     //       System.out.println("perigo"); 
+        
+            if ( mapa[a[0]+c][a[1]+d] == carnivoro){ 
+     //       System.out.println("perigo");
            try{
-            if (mapa[a[0]-(c*2)][a[1]-(d*2)] != carnivoro){
-            if (mapa[a[0]-c][a[1]-d]==vazio || mapa[a[0]-c][a[1]-d]==herbivoro || mapa[a[0]-c][a[1]-d]==planta){
+            if (mapa[a[0]-c][a[1]-d] != carnivoro){
                 int b[]= {a[0]-c,a[1]-d};
                 x.andar(mapa, b, ator);return;}
-            }
-           } catch(IndexOutOfBoundsException e1){
-               try{
+               }catch(IndexOutOfBoundsException e1){} 
+          
+            try{
                if (mapa[a[0]-c][a[1]-d]==vazio || mapa[a[0]-c][a[1]-d]==herbivoro || mapa[a[0]-c][a[1]-d]==planta){
                int b[]= {a[0]-c,a[1]-d};
                x.andar(mapa, b, ator);return;}
-               }catch(IndexOutOfBoundsException e2){}}
+               }catch(IndexOutOfBoundsException e2){}
            
            try{
             if (mapa[a[0]+c][a[1]-d]==vazio || mapa[a[0]+c][a[1]-d]==herbivoro || mapa[a[0]+c][a[1]-d]==planta){
@@ -64,13 +64,12 @@ public void olhar(int[] a, char[][] mapa, A_Ator ator){
         x.andar(mapa, b, ator);
       return;}//fim do if comida
   
-  else if ((mapa[a[0]+c][a[1]+d] == vazio )){
+      else if ((mapa[a[0]+c][a[1]+d] == vazio )){
       //System.out.println("Vazio");
           localizacoes[cont][0]=a[0]+c;
           localizacoes[cont][1]=a[1]+d;
           cont++;
-  } 
-        
+  }      
 } // fim do if de exessão
 }// fim do for
     x.andar(mapa, localizacoes, ator, cont);

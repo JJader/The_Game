@@ -19,5 +19,5 @@ public class A_Ator extends Visao{
 	public A_Ator() {
 		nome = n[a];
 		a++;
-		energia = 10;		
+		energia = 40;		
 	}}
