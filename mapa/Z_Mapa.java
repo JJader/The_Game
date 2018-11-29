@@ -12,29 +12,25 @@ public class Z_Mapa{
         public char planta = '+';
         public char ninho = '^';
         public char herbivoro = '#';
+        public char Planta_zumbir = '$';
         Random p = new Random();
         
 	
 	public Z_Mapa() {
-            
-            
             	atores = new ArrayList<>();
+                
 		for (int i = 0; i<16; i++) {
 			for(int j = 0; j<16; j++) {
 				mapa[i][j] = vazio;
 			}}
-           
+                           
                 for (int i = 0; i<60; i++){
                     addSeres(planta);
                 }
                 for (int i = 0; i<40; i++){
-                    
                     addSeres(herbivoro);
                 }
-                
-                
-                
-        }
+           }
 	
 //----------------------------------------------------------------------------------------------
 	
@@ -84,37 +80,36 @@ public class Z_Mapa{
         public void addNinho (){
             for (int i = 0; i < atores.size(); i++){
                     addSeres(ninho);
+                    addSeres(ninho);
+                    addSeres(Planta_zumbir);
                 }
         }
         
 //----------------------------------------------------------------------------------------------
-        
-        public void retornaPosicao(int a, int[] nu){
-            int j ,i;
-            
-            for (j = 0; j< atores.size(); j++){
-                if (atores.get(j).id == a){
                 
+        public A_Ator HeroiLocaliza(int[] nu){
+            int i;
+                            
             for (i = 0; i < atores.size(); i++){
                 if (atores.get(i).localizacao[0] == nu[0] && atores.get(i).localizacao[1] == nu[1]){
-                    if(atores.get(i).energia < atores.get(j).energia){
-                        atores.get(j).energia+=atores.get(i).energia;
-                        atores.get(i).energia = 0;
-                        System.out.println(atores.get(j).nome + " matou " + atores.get(i).nome );
-                        break;
-                    }else{
-                        atores.get(i).energia+=atores.get(j).energia;
-                        atores.get(j).energia = 0;
-                        System.out.println(atores.get(i).nome + " matou " + atores.get(j).nome );
-                        break;
-                    }}    
-                }break;
-            }}
-            HeroiMorre();
-            }
+                    return atores.get(i);
+                }}
+            return new A_Ator('0');
+        }
+
         
-        public void HeroiOlhar(int nu, Z_Mapa m){
-            try{atores.get(nu).olhar(atores.get(nu).localizacao, mapa, atores.get(nu), m);}
+        
+        
+        
+        public void HeroiPensa(int nu, Z_Mapa m){
+            try{
+                if(!atores.get(nu).infectado){
+                atores.get(nu).olhar(atores.get(nu).localizacao, mapa, atores.get(nu), m);
+                }else{
+                atores.get(nu).olharInfectado(atores.get(nu).localizacao, mapa, atores.get(nu), m);
+                }
+                
+            }
             catch(IndexOutOfBoundsException e){System.out.println("Não tem heroi");}
             }
         
@@ -126,14 +121,9 @@ public class Z_Mapa{
                     }}
         }
         
-        public void HeroiReproduz(char c, int[] a){
-            A_Ator d = new A_Ator(c);
-            d.nome = c;
-            d.localizacao[0] = a[0];
-            d.localizacao[1] = a[1];
-            atores.add(d);
-            mapa[a[0]][a[1]] = d.nome;
-            
+        public void HeroiNasce(A_Ator a){
+            atores.add(a);
+            mapa[a.localizacao[0]][a.localizacao[1]] = a.nome;  
         }
 
 //----------------------------------------------------------------------------------------------

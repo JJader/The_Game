@@ -30,6 +30,7 @@ public class Main {
             System.out.println("");         
             System.out.println("Quantos atores você quer no ambiente???");
             numero = in.nextInt();
+            //-------------------------------------------------------------------------------------------
             
             for (int i = 0; i<numero; i++){
         	kMapa.alocando();
@@ -40,12 +41,11 @@ public class Main {
            while (kMapa.atores.size()>0){   
                
            for (int k = 0; k<kMapa.atores.size(); k++){
-               kMapa.HeroiOlhar(k, kMapa);
+               kMapa.HeroiPensa(k, kMapa);
                try {Thread.sleep(1000);}
                catch (InterruptedException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);}
                kMapa.apresenta_mapa();
            }
-           
            }   
 }}
