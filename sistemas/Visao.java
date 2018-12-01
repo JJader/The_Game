@@ -6,13 +6,18 @@ import personagens.A_Ator;
 
 
 
-public class Visao extends Z_Mapa{
+public class Visao{
 
     Locomotor loco= new Locomotor();
     Reprodutor repr = new Reprodutor();
     Digestivo dige = new Digestivo();
 
 public void olhar(int[] a, char[][] mapa, A_Ator ator, Z_Mapa m){
+    
+    if (ator.infectado){
+        olharInfectado(a, mapa, ator, m);
+        return;
+    }
     
     int[][] localizacoes = new int[4][2];
     int cont=0;
@@ -29,42 +34,51 @@ public void olhar(int[] a, char[][] mapa, A_Ator ator, Z_Mapa m){
                 
        if ((a[0]+c < 16) && (a[0]+c >= 0) && (a[1]+d < 16) && (a[1]+d) >= 0){
         
-       if ( (mapa[a[0]+c][a[1]+d] == planta) || (mapa[a[0]+c][a[1]+d] == herbivoro) ){ 
+       if ( (mapa[a[0]+c][a[1]+d] == m.planta) || (mapa[a[0]+c][a[1]+d] == m.herbivoro) ){ 
       //System.out.println("comida"); 
         int[] b= {a[0]+c,a[1]+d};
         loco.andar(mapa, b, ator);
-        if (mapa[a[0]+c][a[1]+d] == planta){dige.energia(ator, 20);}
+        if (mapa[a[0]+c][a[1]+d] == m.planta){dige.energia(ator, 20);}
         else{dige.energia(ator, 40);}
-        
-        return;}//fim do if comida
+        return;
+         }//fim do if comida
     
-      else if (mapa[a[0]+c][a[1]+d] == ninho){
+      else if (mapa[a[0]+c][a[1]+d] == m.ninho){
           int[] b= {a[0]+c,a[1]+d};
-          repr.reproduzir(m, b, ator.nome, ator.energia);
-           System.out.println(ator.nome + " reproduziu");
+          repr.reproduzir(m, b, ator);
+          System.out.println(ator.nome + " reproduziu");
           return;
-      }
+         }//fim do if ninho
       
-      else if ((mapa[a[0]+c][a[1]+d] == vazio )){
+      else if ((mapa[a[0]+c][a[1]+d] == m.vazio )){
       //System.out.println("Vazio");
           localizacoes[cont][0]=a[0]+c;
           localizacoes[cont][1]=a[1]+d;
           cont++;
-  }   
-      else if (mapa[a[0]+c][a[1]+d] == Planta_zumbir){ 
+         }//fim do if vazio
+      
+      else if (mapa[a[0]+c][a[1]+d] == m.Planta_zumbir){ 
       //System.out.println("comida"); 
         int[] b= {a[0]+c,a[1]+d};
-        loco.andar(mapa, b, ator);
         dige.infectar(ator);
-        return;}//fim do if comida
-      
+        loco.andar(mapa, b, ator);
+        return;
+      }//fim do if comida
            
       else if (mapa[a[0]+c][a[1]+d] != ator.nome) {
           int[] b= {a[0]+c,a[1]+d};
            dige.devora(ator, m.HeroiLocaliza(b));
+           loco.andar(mapa, ator.localizacao, ator);
             m.HeroiMorre();
            return;
-      }
+      }// fim do if batalha
+      
+       else if (mapa[a[0]+c][a[1]+d] == ator.nome && ator.ciclo<=0) {
+          int[] b= {a[0]+c,a[1]+d};
+          repr.reproduzir(m, m.HeroiLocaliza(b), ator);
+           return;
+      }//fim do if reproduzir
+       
 } // fim do if de exessão
 }// fim do for
     loco.andar(mapa, localizacoes, ator, cont);
@@ -88,14 +102,16 @@ int[][] localizacoes = new int[4][2];
                 
        if ((a[0]+c < 16) && (a[0]+c >= 0) && (a[1]+d < 16) && (a[1]+d) >= 0){
       
-      if (mapa[a[0]+c][a[1]+d] != Planta_zumbir && mapa[a[0]+c][a[1]+d] != dige.zumbir && mapa[a[0]+c][a[1]+d] != vazio && mapa[a[0]+c][a[1]+d] != planta && mapa[a[0]+c][a[1]+d] != herbivoro && mapa[a[0]+c][a[1]+d] != ninho) {
+      if (mapa[a[0]+c][a[1]+d] != m.Planta_zumbir && mapa[a[0]+c][a[1]+d] != dige.zumbir && mapa[a[0]+c][a[1]+d] != m.vazio && mapa[a[0]+c][a[1]+d] != m.planta && mapa[a[0]+c][a[1]+d] != m.herbivoro && mapa[a[0]+c][a[1]+d] != m.ninho) {
           int[] b= {a[0]+c,a[1]+d};
-          dige.devora(m.HeroiLocaliza(b), ator);
-           m.HeroiMorre();
+          A_Ator des = m.HeroiLocaliza(b);
+          dige.devora(des, ator);
+          loco.andar(mapa, des.localizacao, des);
+          m.HeroiMorre();
            return;
       }
       
-      else if ((mapa[a[0]+c][a[1]+d] == vazio )){
+      else if ((mapa[a[0]+c][a[1]+d] == m.vazio )){
       //System.out.println("Vazio");
           localizacoes[cont][0]=a[0]+c;
           localizacoes[cont][1]=a[1]+d;

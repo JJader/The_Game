@@ -1,5 +1,7 @@
 package the_game;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,7 +11,7 @@ import mapa.Z_Mapa;
 public class Main {
 
     
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 	    Scanner in = new Scanner(System.in);
             Z_Mapa kMapa = new Z_Mapa();
             int numero;
@@ -29,7 +31,16 @@ public class Main {
             System.out.println("-----------------------------------------------------------------------------------------");
             System.out.println("");         
             System.out.println("Quantos atores você quer no ambiente???");
+            try{
             numero = in.nextInt();
+            }catch(InputMismatchException e){
+            System.out.println("\n \nPelo visto você não é capaz de responder essa questão!");
+            System.out.println("Vamos fazer isso por você, tome 2 atores de presente");
+            numero = 2;
+            try {Thread.sleep(5000);}
+            catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);} 
+            }
             //-------------------------------------------------------------------------------------------
             
             for (int i = 0; i<numero; i++){
