@@ -24,7 +24,7 @@ public class Z_Mapa{
         public char Planta_zumbir = '$';
         Random p = new Random();
         
-        Window janela;
+        public Window janela;
         GameImage fundo;
         Keyboard tecla;
         Cenario cenario;
@@ -52,10 +52,10 @@ public class Z_Mapa{
         "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
         "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
         "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "%%");
+        "%%"+ "\nsrc/Interface/sprite/fund.png");
             arq.close();
             
-            janela = new Window(401, 401);
+            janela = new Window(800, 600);
             tecla = janela.getKeyboard();
             cenario = new Cenario(janela);
             atores = new ArrayList<>();
@@ -129,7 +129,7 @@ public class Z_Mapa{
         "src/Interface/sprite/H.png\n" +
         "src/Interface/sprite/badPlant.png\n" +
         "src/Interface/sprite/terra.png\n" + 
-        str + "%%");
+        str + "%%" + "\nsrc/Interface/sprite/fund.png");
         arq.close();
         cenario.run();
         }

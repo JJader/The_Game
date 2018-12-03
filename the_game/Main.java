@@ -25,6 +25,7 @@ public class Main {
             System.out.println("# --> Herbivoro");
             System.out.println("+ --> Plantas");
             System.out.println("^ --> Ninho para reproduzir");
+            System.out.println("$ --> Planta zumbir");
             System.out.println("O sistema será completamente autônomo, os atores serão independentes");
             System.out.println("As ações dos atores são baseadas em prioridades:");
             System.out.println("1) Comer \n2) Reproduzir \n3)Lutar \n4) Andar um espaço vazio");
@@ -44,7 +45,7 @@ public class Main {
             //-------------------------------------------------------------------------------------------
             
             for (int i = 0; i<numero; i++){
-        	kMapa.alocando();
+            kMapa.alocando();
             }
             kMapa.addNinho();
             kMapa.apresenta_mapa();    
@@ -58,5 +59,7 @@ public class Main {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);}
                kMapa.apresenta_mapa();
            }
-           }   
+           }  
+           kMapa.janela.exit();
+           
 }}
