@@ -1,14 +1,13 @@
-
 package sistemas;
 
 import java.util.Random;
 import mapa.Z_Mapa;
 import personagens.A_Ator;
 
-
 public class Reprodutor {
     
-    Random deficiencia = new Random();
+    Random deficiencia = new Random(); // o ator se for produzido em um ninho ele pode nascer com deficiencia
+    // ou seja, uma quantidade muito pouca de energia
     
     public void reproduzir(Z_Mapa m, int[] a, A_Ator pai){
             boolean x = deficiencia.nextBoolean();    
@@ -26,5 +25,4 @@ public class Reprodutor {
             pai.ciclo = 3;
             m.HeroiNasce(mae.nome);
     }
-    
 }

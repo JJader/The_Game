@@ -1,17 +1,21 @@
+/*
+Essa classe é basicamente nosso mundo, é aqui que são produzidos o mapa, onde são
+alocados os atores, herbivoros, plantas, e etc. É aqui que são localizado cada ator
+e onde há o controle dos atores.
+*/
 package mapa;
-
+//bibliotecas para a interface
 import Interface.Cenario;
-import jplay.GameImage;
-import jplay.Keyboard;
+import java.awt.Color;
+import java.awt.Label;
 import jplay.Window;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+//bibliotecas para os atores
 import java.util.ArrayList;
 import java.util.Random;
 import personagens.A_Ator;
-
 
 public class Z_Mapa{
 
@@ -22,77 +26,81 @@ public class Z_Mapa{
         public char ninho = '^';
         public char herbivoro = '#';
         public char Planta_zumbir = '$';
+        
         Random p = new Random();
         
         public Window janela;
-        GameImage fundo;
-        Keyboard tecla;
         Cenario cenario;
         FileWriter arq;
         PrintWriter escvr;
+        public Label c = new Label();
 	
 	public Z_Mapa() throws IOException {
+            //configuração inicial das variáveis (inicialização)
             arq = new FileWriter("src/Interface/scm/arq.scm");
             escvr = new PrintWriter(arq);
             escvr.printf("01\n" +
-        "src/Interface/sprite/grama.png\n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
-        "%%"+ "\nsrc/Interface/sprite/fund.png");
+            "src/Interface/sprite/grama.png\n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n" +
+            "%%"+ "\nsrc/Interface/sprite/fund.png");
             arq.close();
             
+            c.setText("ola mundo doido");
+            c.setBounds(600, 0, 200, 20);
+            c.setBackground(Color.BLACK);
+            c.setForeground(Color.GREEN);
             janela = new Window(800, 600);
-            tecla = janela.getKeyboard();
+            janela.add(c);
             cenario = new Cenario(janela);
             atores = new ArrayList<>();
-                
-		for (int i = 0; i<16; i++) {
-			for(int j = 0; j<16; j++) {
-				mapa[i][j] = vazio;
-			}}
-                           
-                for (int i = 0; i<60; i++){
-                    addSeres(planta);
+            //------------------------------------------------------------------    
+            // criando mapa, adicionando planta e herbivoros
+            for (int i = 0; i<16; i++) {
+		for(int j = 0; j<16; j++){
+			mapa[i][j] = vazio;
                 }
-                for (int i = 0; i<40; i++){
-                    addSeres(herbivoro);
-                }
-           }
-	
-//----------------------------------------------------------------------------------------------
+            }
+            for (int i = 0; i<60; i++){
+                addSeres(planta);
+            }
+            for (int i = 0; i<40; i++){
+                addSeres(herbivoro);
+            }
+           } // criando mapa, alocando seres do ambiente, iniciando variaveis
 	
 	public void apresenta_mapa() throws IOException {
-           HeroiMorre();
+            HeroiMorre();
             System.out.println("    0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15");
-		for (int i = 0; i<16; i++) {
-                    if (i<10){
-                    System.out.print(" " +i);
-                    } else {System.out.print(i);}
-			for(int j = 0; j<16; j++) {
-				System.out.print("[ " + mapa[i][j] + " ]" + " ");
-			}
-			System.out.println();
-                        escreve_mapa();
-		}}
+            for (int i = 0; i<16; i++) {
+                if (i<10){
+                System.out.print(" " +i);
+                } else {System.out.print(i);}
+            for(int j = 0; j<16; j++) {
+		System.out.print("[ " + mapa[i][j] + " ]" + " ");
+	    }
+		System.out.println();
+		}
+            escreve_mapa();
+        } // apresentando o mapa como string
         
-        public void escreve_mapa() throws IOException{
+        public void escreve_mapa() throws IOException{ 
             
             String str = "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 \n";
-           
             for(int i = 0; i < 16; i++){
                 for(int j = 0; j < 16; j++){
                     if(mapa[i][j] == vazio){ str += "01 ";}
@@ -132,9 +140,7 @@ public class Z_Mapa{
         str + "%%" + "\nsrc/Interface/sprite/fund.png");
         arq.close();
         cenario.run();
-        }
-	
-//----------------------------------------------------------------------------------------------
+        } // escrevendo arquivo scm para interface
 
 	public void alocando() {
             
@@ -152,7 +158,7 @@ public class Z_Mapa{
                 }}}catch(IndexOutOfBoundsException e){
                     System.out.println("Você não pode colocar mais atores");
                 }
-        }
+        } // Alocando os atores no mapa
         
         public void addSeres(char ser){
             int x,y;
@@ -161,34 +167,33 @@ public class Z_Mapa{
                 y = p.nextInt(16);
                 if (mapa[x][y] == vazio){mapa[x][y] = ser; return;}
             }
-        }
+        }// adicionando caracter ao mapa, pode ser uma planta, herbivoro etc
        
         public void addNinho (){
             for (int i = 0; i < atores.size(); i++){
                     addSeres(ninho);
                     addSeres(ninho);
-                    addSeres(Planta_zumbir);
                 }
-        }
+            for (int i = 0; i<atores.size()*0.5; i++){
+                addSeres(Planta_zumbir);
+            }
+        }//adicionando ninho e plantas zumbi
         
-//----------------------------------------------------------------------------------------------
-                
         public A_Ator HeroiLocaliza(int[] nu){
             int i;
-                            
             for (i = 0; i < atores.size(); i++){
                 if (atores.get(i).localizacao[0] == nu[0] && atores.get(i).localizacao[1] == nu[1]){
                     return atores.get(i);
                 }}
             return new A_Ator('0');
-        }
+        } // função para localizar ator com base no vetor posição
          
         public void HeroiPensa(int nu, Z_Mapa m){
             try{
                 atores.get(nu).olhar(atores.get(nu).localizacao, mapa, atores.get(nu), m); 
             }
             catch(IndexOutOfBoundsException e){System.out.println("Não tem heroi");}
-            }
+            } // aqui vou chamar o sistema de visão para meu ator pensar
         
         public void HeroiMorre(){
             for(int i = 0; i< atores.size(); i++){
@@ -196,12 +201,12 @@ public class Z_Mapa{
                     mapa[atores.get(i).localizacao[0]][atores.get(i).localizacao[1]] = vazio;
                     atores.remove(i);
                     }}
-        }
+        } // exclui todos os atores que possuem energia zero
         
         public void HeroiNasce(A_Ator a){
             atores.add(a);
             mapa[a.localizacao[0]][a.localizacao[1]] = a.nome; 
-        }
+        }// alocar novos atores que nasce durante o jogo 
         
         public void HeroiNasce(char nome) {
             A_Ator ator = new A_Ator(nome);
@@ -213,10 +218,10 @@ public class Z_Mapa{
 			ator.localizacao[1] = y;
 			HeroiNasce(ator);
                         System.out.println(ator.nome +" nasceu em (" + ator.localizacao[0]  +" , " + ator.localizacao[1] + ")");
+                        c.setText(" nasceu em (" + ator.localizacao[0]  +" , " + ator.localizacao[1] + ")");
 			return;
                 }}
         }
 
-//----------------------------------------------------------------------------------------------
 }        
 
